@@ -18,12 +18,24 @@ import com.example.vyakovenko.dictionary.MainTemplate;
 import com.example.vyakovenko.dictionary.R;
 import com.example.vyakovenko.dictionary.adapter.DictionaryListAdapter;
 
+import java.util.ArrayList;
+
 public class ReviewWords extends MainTemplate {
     DictionaryListAdapter dictionaryListAdapter;
+    ArrayList<String> arr  = new ArrayList<>();
+    Integer[] a = {1,2,3,4};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_words);
+
+        for(int i=0; i<30;i++)
+            arr.add("q");
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,12 +47,11 @@ public class ReviewWords extends MainTemplate {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        Integer[] a = {1,2,3,4};
 
-        dictionaryListAdapter = new DictionaryListAdapter(this, a);
-
-        // настраиваем список
         ListView lvMain = (ListView) findViewById(R.id.lvMain);
+
+        dictionaryListAdapter = new DictionaryListAdapter(this, arr);
+        lvMain.setClickable(false);
         lvMain.setAdapter(dictionaryListAdapter);
     }
 }
