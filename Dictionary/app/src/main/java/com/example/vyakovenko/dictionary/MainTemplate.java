@@ -2,16 +2,25 @@ package com.example.vyakovenko.dictionary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.vyakovenko.dictionary.DB.DBAdapter;
 import com.example.vyakovenko.dictionary.DB.DBHelper;
 import com.example.vyakovenko.dictionary.activities.MainActivity;
 import com.example.vyakovenko.dictionary.activities.ReviewWords;
+import com.example.vyakovenko.dictionary.external_carriers.CSVAdapter;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class MainTemplate extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,7 +83,37 @@ public class MainTemplate extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+            /*DBAdapter dbAdapter = new DBAdapter(dbHelper);
+            CSVAdapter csvAdapter = new CSVAdapter();
+            try {
+                csvAdapter.writeAllDataToFile(dbAdapter.getAllWordsFromDB());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }*/
 
+            /*String filePath = getApplicationContext().getFilesDir().getPath().toString() + "/export.txt";
+            File f = new File(filePath);
+            if(!f.exists()) {
+                try {
+                    f.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }*/
+            String filePath = getApplicationContext().getFilesDir().getPath().toString() + "/export";
+            File f = new File(filePath);
+            f.mkdirs();
+            File folder = new File(Environment.getExternalStorageDirectory() + "/AMJ");
+            if (folder.exists() && folder.isDirectory()) {
+
+                Toast.makeText(getApplicationContext(), "folder " + folder + " exists", Toast.LENGTH_LONG).show(); //##1
+            }              else {
+            Toast.makeText(getApplicationContext(), "folder " + folder + " does not exist", Toast.LENGTH_LONG).show(); //##2
+            folder.mkdirs();
+
+        }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
