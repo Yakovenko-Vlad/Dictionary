@@ -17,10 +17,7 @@ import com.example.vyakovenko.dictionary.DB.DBAdapter;
 import com.example.vyakovenko.dictionary.DB.DBHelper;
 import com.example.vyakovenko.dictionary.activities.MainActivity;
 import com.example.vyakovenko.dictionary.activities.ReviewWords;
-import com.example.vyakovenko.dictionary.external_carriers.CSVAdapter;
-
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+import com.example.vyakovenko.dictionary.external_carriers.JSONadapter;
 
 
 public class MainTemplate extends AppCompatActivity
@@ -34,6 +31,8 @@ public class MainTemplate extends AppCompatActivity
         dbHelper = new DBHelper(this);
         Permissions permissions = new Permissions();
         permissions.checkPermissions(this, this);
+        JSONadapter JSONadapter = new JSONadapter(getApplicationContext());
+        JSONadapter.createFolder();
         System.out.println();
     }
 
@@ -85,11 +84,12 @@ public class MainTemplate extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
+            JSONadapter JSONadapter = new JSONadapter(getApplicationContext());
+            JSONadapter.readDataFromFile();
         } else if (id == R.id.nav_send) {
             DBAdapter dbAdapter = new DBAdapter(dbHelper);
-            CSVAdapter csvAdapter = new CSVAdapter();
-            csvAdapter.writeAllDataToFile(dbAdapter.getAllWordsFromDB());
+            JSONadapter JSONadapter = new JSONadapter(getApplicationContext());
+            JSONadapter.writeAllDataToFile(dbAdapter.getAllWordsFromDB());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
