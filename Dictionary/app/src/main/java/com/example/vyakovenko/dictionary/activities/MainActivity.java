@@ -1,6 +1,7 @@
 package com.example.vyakovenko.dictionary.activities;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +25,8 @@ import android.widget.Toast;
 import com.example.vyakovenko.dictionary.DB.DBHelper;
 import com.example.vyakovenko.dictionary.MainTemplate;
 import com.example.vyakovenko.dictionary.R;
+
+import java.util.Locale;
 
 public class MainActivity extends MainTemplate {
     Button addNewWord;
@@ -53,6 +58,12 @@ public class MainActivity extends MainTemplate {
     View.OnClickListener myButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
+            String lovaleStr = ims.getLocale();
+            Locale locale = new Locale(lovaleStr);
+            String cur = locale.getDisplayLanguage();
+            System.out.println(cur);
             ContentValues cv = new ContentValues();
             String engWord = engText.getText().toString();
             String ukrWord = ukrText.getText().toString();
