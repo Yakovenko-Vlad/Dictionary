@@ -31,6 +31,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -92,11 +93,19 @@ public class JSONadapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(data);
         try {
-            JSONArray mainNode = new JSONArray(String.valueOf(stringBuilder));
             JSONObject t = new JSONObject(String.valueOf(stringBuilder));
-            System.out.println(mainNode);
+            Iterator<String> keys = t.keys();
+            while( keys.hasNext() ) {
+                String key = keys.next();
+                t.get(key);
+                Log.d("tag", key+ " <--> " + t.get(key));
+            }
+
+
+            //Log.d("tag", s.length()+"");
+            System.out.println(t.length());
+
         }catch (JSONException e) {
             e.printStackTrace();
         }
