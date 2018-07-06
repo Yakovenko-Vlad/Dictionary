@@ -65,19 +65,24 @@ public class MainActivity extends MainTemplate {
             String cur = locale.getDisplayLanguage();
             System.out.println(cur);
             ContentValues cv = new ContentValues();
+
             String engWord = engText.getText().toString();
             String ukrWord = ukrText.getText().toString();
 
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            cv.put("english", engWord);
-            cv.put("ukrainian", ukrWord);
+            if (engWord.length() > 0 && ukrWord.length() > 0) {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                cv.put("english", engWord);
+                cv.put("ukrainian", ukrWord);
 
-            // вставляем запись и получаем ее ID
-            long rowID = db.insert("dictionary", null, cv);
-            Toast.makeText(getApplicationContext(), "row inserted, ID = " + rowID, Toast.LENGTH_SHORT).show();
+                // вставляем запись и получаем ее ID
+                long rowID = db.insert("dictionary", null, cv);
+                Toast.makeText(getApplicationContext(), "row inserted, ID = " + rowID, Toast.LENGTH_SHORT).show();
 
-            engText.setText(null);
-            ukrText.setText(null);
+                engText.setText(null);
+                ukrText.setText(null);
+            } else {
+                Toast.makeText(getApplicationContext(), "Please, fill all required fields.", Toast.LENGTH_SHORT).show();
+            }
         }
     };
 }

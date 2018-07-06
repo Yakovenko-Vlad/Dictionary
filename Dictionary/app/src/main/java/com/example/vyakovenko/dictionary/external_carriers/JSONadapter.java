@@ -73,6 +73,7 @@ public class JSONadapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Toast.makeText(context, "Dictionary exported to the file", Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<String[]> readDataFromFile() {
@@ -109,6 +110,7 @@ public class JSONadapter {
         }catch (JSONException e) {
             e.printStackTrace();
         }
+        Toast.makeText(context, "Dictionary imported from the file to the data base", Toast.LENGTH_SHORT).show();
         return null;
     }
 
@@ -117,6 +119,7 @@ public class JSONadapter {
         if (!folder.exists()) {
             folder.mkdirs();
             if (!folder.exists())
+                Toast.makeText(context, "Folder is not created!", Toast.LENGTH_SHORT).show();
                 return false;
         }
         scanFile(folder.getAbsolutePath());
