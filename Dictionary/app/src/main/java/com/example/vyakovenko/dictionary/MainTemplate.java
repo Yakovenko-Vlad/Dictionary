@@ -85,7 +85,7 @@ public class MainTemplate extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
             JSONadapter JSONadapter = new JSONadapter(getApplicationContext());
-            JSONadapter.readDataFromFile();
+            JSONadapter.readDataFromFile(dbHelper);
         } else if (id == R.id.nav_send) {
             DBAdapter dbAdapter = new DBAdapter(dbHelper);
             JSONadapter JSONadapter = new JSONadapter(getApplicationContext());

@@ -1,12 +1,15 @@
 package com.example.vyakovenko.dictionary.DB;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class DBAdapter {
-    DBHelper dbHelper;
+    public DBHelper dbHelper;
     public DBAdapter(DBHelper dbHelper) {
         this.dbHelper = dbHelper;
     }
@@ -25,5 +28,22 @@ public class DBAdapter {
         }
         c.close();
         return arrayList;
+    }
+
+    public void insertWordsFromFileToDB(ArrayList<String[]> arrayList){
+        ContentValues cv = new ContentValues();
+        Cursor cursor;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int counter = 0;
+        for (String[] string : arrayList) {
+            cursor = db.query("dictionary", null, "english = '" + string[0]+"'", null, null, null, null);
+            if (cursor.getColumnCount() > 0) {
+                cv.put("english", string[0]);
+                cv.put("ukrainian", string[1]);
+                db.insert("dictionary", null, cv);
+                counter++;
+            } else continue;
+        }
+        Log.d("insertCounter", String.valueOf(counter) + " columns added");
     }
 }

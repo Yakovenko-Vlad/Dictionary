@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Calendar;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
@@ -19,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "english text NOT NULL,"
                 + "ukrainian text NOT NULL,"
                 + "status text,"
+//                + "date text DEFAULT " + Calendar.getInstance().getTime() + ","
                 + "level integer DEFAULT 0"
                 + ");");
     }
