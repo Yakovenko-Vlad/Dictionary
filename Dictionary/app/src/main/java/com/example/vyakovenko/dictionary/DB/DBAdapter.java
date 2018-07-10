@@ -32,12 +32,13 @@ public class DBAdapter {
 
     public void insertWordsFromFileToDB(ArrayList<String[]> arrayList){
         ContentValues cv = new ContentValues();
-        Cursor cursor;
+        Cursor cursor, c;
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int counter = 0;
         for (String[] string : arrayList) {
-            cursor = db.query("dictionary", null, "english = '" + string[0]+"'", null, null, null, null);
-            if (cursor.getColumnCount() > 0) {
+            c = db.query("dictionary", null, null, null, null, null, "id");
+            cursor = db.query("dictionary", new String[]{"id"}, "english = ? and ukrainian = ?", new String[]{string[0], string[1]}, null, null, null);
+            if ((cursor.getCount() == 0 && c.getCount() > 0) || c.getCount() == 0) {
                 cv.put("english", string[0]);
                 cv.put("ukrainian", string[1]);
                 db.insert("dictionary", null, cv);

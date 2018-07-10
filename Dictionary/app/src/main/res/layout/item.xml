@@ -2,37 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp">
+    >
 
     <TextView
         android:id="@+id/counter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:text=""
-        android:layout_weight="1.75"
-        android:textSize="17sp"></TextView>
+        android:paddingLeft="2dp"
+        android:layout_weight="1.7"
+        android:textSize="14sp"></TextView>
 
     <TextView
         android:id="@+id/engWord"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="4dp"
         android:layout_gravity="left|center_vertical"
         android:text=""
-        android:layout_marginLeft="5dp"
+        android:background="@drawable/cell_shape"
         android:layout_weight="1"
         android:textSize="17sp"></TextView>
 
     <TextView
         android:id="@+id/uaWord"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:layout_height="match_parent"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="5dp"
         android:text=""
+        android:background="@drawable/cell_shape"
         android:layout_weight="1"
+        android:layout_marginRight="5dp"
         android:textSize="17sp"></TextView>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.vyakovenko.dictionary.activities;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -71,15 +72,20 @@ public class MainActivity extends MainTemplate {
 
             if (engWord.length() > 0 && ukrWord.length() > 0) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                cv.put("english", engWord);
-                cv.put("ukrainian", ukrWord);
+                Cursor cursor, c;
+                c = db.query("dictionary", null, null, null, null, null, "id");
+                cursor = db.query("dictionary", new String[]{"id"}, "english = ? and ukrainian = ?", new String[]{engWord, ukrWord}, null, null, null);
+                if ((cursor.getCount() == 0 && c.getCount() > 0) || c.getCount() == 0) {
+                    cv.put("english", engWord);
+                    cv.put("ukrainian", ukrWord);
 
-                // вставляем запись и получаем ее ID
-                long rowID = db.insert("dictionary", null, cv);
-                Toast.makeText(getApplicationContext(), "row inserted, ID = " + rowID, Toast.LENGTH_SHORT).show();
+                    // вставляем запись и получаем ее ID
+                    long rowID = db.insert("dictionary", null, cv);
+                    Toast.makeText(getApplicationContext(), "row inserted, ID = " + rowID, Toast.LENGTH_SHORT).show();
 
-                engText.setText(null);
-                ukrText.setText(null);
+                    engText.setText(null);
+                    ukrText.setText(null);
+                } else Toast.makeText(getApplicationContext(), "Words already added", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Please, fill all required fields.", Toast.LENGTH_SHORT).show();
             }

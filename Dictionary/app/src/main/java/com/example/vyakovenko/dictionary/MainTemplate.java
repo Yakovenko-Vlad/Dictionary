@@ -86,6 +86,8 @@ public class MainTemplate extends AppCompatActivity
         } else if (id == R.id.nav_share) {
             JSONadapter JSONadapter = new JSONadapter(getApplicationContext());
             JSONadapter.readDataFromFile(dbHelper);
+            Intent intent = new Intent(getApplicationContext(), ReviewWords.class);
+            startActivity(intent);
         } else if (id == R.id.nav_send) {
             DBAdapter dbAdapter = new DBAdapter(dbHelper);
             JSONadapter JSONadapter = new JSONadapter(getApplicationContext());
