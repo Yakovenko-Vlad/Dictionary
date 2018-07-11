@@ -8,7 +8,7 @@
     tools:context=".activities.ReviewWords"
     tools:showIn="@layout/app_bar_review_words">
     <TableRow
-        android:id="@+id/tabla_cabecera"
+        android:id="@+id/rowTop"
         android:layout_width="match_parent"
         android:layout_height="10dp"></TableRow>
 
@@ -33,4 +33,5 @@
         tools:ignore="MissingConstraints"></ListView>
         </TableRow>
     </TableLayout>
+
 </android.support.constraint.ConstraintLayout>

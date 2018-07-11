@@ -24,6 +24,10 @@
         android:text=""
         android:background="@drawable/cell_shape"
         android:layout_weight="1"
+        android:enabled="true"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"
         android:textSize="17sp"></TextView>
 
     <TextView
@@ -36,6 +40,10 @@
         android:background="@drawable/cell_shape"
         android:layout_weight="1"
         android:layout_marginRight="5dp"
+        android:enabled="true"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"
         android:textSize="17sp"></TextView>
 
 </LinearLayout>
