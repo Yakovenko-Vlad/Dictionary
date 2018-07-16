@@ -55,7 +55,6 @@ public class DictionaryListAdapter extends BaseAdapter{
             ((TextView) view.findViewById(R.id.engWord)).setText(wordsFromDB.get(i)[0]);
             ((TextView) view.findViewById(R.id.uaWord)).setText(wordsFromDB.get(i)[1]);
         }
-        ((TextView) view.findViewById(R.id.counter)).onL
         return view;
     }
 }

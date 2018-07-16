@@ -21,14 +21,29 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_review_words" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/searchWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        app:backgroundTint="@android:color/holo_green_light"
+        android:tint="@android:color/white"
+        android:clickable="true"
+        app:elevation="6dp"
+        android:layout_marginBottom="80dp"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addNewWordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        app:elevation="6dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:tint="@android:color/white"
+        android:clickable="true"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.design.widget.CoordinatorLayout>

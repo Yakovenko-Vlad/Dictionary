@@ -55,8 +55,18 @@ public class ReviewWords extends MainTemplate {
                 startActivity(intent);
             }
         });
+        FloatingActionButton sab = findViewById(R.id.searchWordButton);
+        sab.setOnClickListener(onSABclickListener);
     }
-    public void setClipboard(Context context, String text) {
+
+    private View.OnClickListener onSABclickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+
+        }
+
+        public void setClipboard(Context context, String text) {
         if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             clipboard.setText(text);
