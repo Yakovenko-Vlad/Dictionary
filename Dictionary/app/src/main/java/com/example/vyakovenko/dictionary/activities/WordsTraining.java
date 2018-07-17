@@ -1,6 +1,5 @@
 package com.example.vyakovenko.dictionary.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,25 +13,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.example.vyakovenko.dictionary.DB.DBAdapter;
-import com.example.vyakovenko.dictionary.MainTemplate;
 import com.example.vyakovenko.dictionary.R;
-import com.example.vyakovenko.dictionary.adapter.DictionaryListAdapter;
+import com.example.vyakovenko.dictionary.MainTemplate;
 
 import java.util.ArrayList;
 
-public class ReviewWords extends MainTemplate {
-    DictionaryListAdapter dictionaryListAdapter;
-    DBAdapter dbAdapter;
+import static java.util.Collections.sort;
 
+public class WordsTraining extends MainTemplate {
+
+    Button btn1, btn2, btn3, btn4;
+    TextView trainWord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_words);
+        setContentView(R.layout.activity_words_training);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = findViewById(R.id.addNewWordButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -42,24 +52,20 @@ public class ReviewWords extends MainTemplate {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        dbAdapter = new DBAdapter(dbHelper);
-        ListView lvMain = (ListView) findViewById(R.id.lvMain);
-        dictionaryListAdapter = new DictionaryListAdapter(this, dbAdapter.getAllWordsFromDB());
-        lvMain.setClickable(false);
-        lvMain.setAdapter(dictionaryListAdapter);
 
-        FloatingActionButton fab = findViewById(R.id.addNewWordButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        FloatingActionButton sab = findViewById(R.id.searchWordButton);
-        //sab.setOnClickListener(onSABclickListener);
+        trainWord = (TextView) findViewById(R.id.trainWord);
+        btn1 = (Button) findViewById(R.id.btn1);
+        btn2 = (Button) findViewById(R.id.btn2);
+        btn3 = (Button) findViewById(R.id.btn3);
+        btn4 = (Button) findViewById(R.id.btn4);
     }
 
-
+    public void fillElementsWithData(ArrayList<String> data, String trainWordText) {
+        trainWord.setText(trainWordText);
+        sort(data);
+        btn1.setText(data.get(0));
+        btn2.setText(data.get(1));
+        btn3.setText(data.get(2));
+        btn4.setText(data.get(3));
+    }
 }

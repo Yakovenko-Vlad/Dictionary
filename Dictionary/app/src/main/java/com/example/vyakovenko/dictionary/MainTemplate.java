@@ -18,6 +18,7 @@ import com.example.vyakovenko.dictionary.DB.DBAdapter;
 import com.example.vyakovenko.dictionary.DB.DBHelper;
 import com.example.vyakovenko.dictionary.activities.MainActivity;
 import com.example.vyakovenko.dictionary.activities.ReviewWords;
+import com.example.vyakovenko.dictionary.activities.WordsTraining;
 import com.example.vyakovenko.dictionary.external_carriers.JSONadapter;
 
 
@@ -81,7 +82,8 @@ public class MainTemplate extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), ReviewWords.class);
             startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
-
+            Intent intent = new Intent(getApplicationContext(), WordsTraining.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

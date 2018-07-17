@@ -59,12 +59,12 @@ public class MainActivity extends MainTemplate {
     View.OnClickListener myButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            /*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
             String lovaleStr = ims.getLocale();
             Locale locale = new Locale(lovaleStr);
             String cur = locale.getDisplayLanguage();
-            System.out.println(cur);
+            System.out.println(cur);*/
             ContentValues cv = new ContentValues();
 
             String engWord = engText.getText().toString();
@@ -85,7 +85,11 @@ public class MainActivity extends MainTemplate {
 
                     engText.setText(null);
                     ukrText.setText(null);
-                } else Toast.makeText(getApplicationContext(), "Words already added", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Words already added", Toast.LENGTH_SHORT).show();
+                    engText.setText(null);
+                    ukrText.setText(null);
+                }
             } else {
                 Toast.makeText(getApplicationContext(), "Please, fill all required fields.", Toast.LENGTH_SHORT).show();
             }
