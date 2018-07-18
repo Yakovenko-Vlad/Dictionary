@@ -1,5 +1,7 @@
 package com.example.vyakovenko.dictionary.activities;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -21,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vyakovenko.dictionary.DB.DBHelper;
@@ -54,7 +57,24 @@ public class MainActivity extends MainTemplate {
         ukrText = (EditText) findViewById(R.id.ukrText);
         addNewWord = (Button) findViewById(R.id.addNewWord);
         addNewWord.setOnClickListener(myButtonClickListener);
+        engText.setOnLongClickListener(longClickListener);
+        ukrText.setOnLongClickListener(longClickListener);
     }
+
+    View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+            String engWord = engText.getText().toString();
+            String ukrWord = ukrText.getText().toString();
+            String text = ukrWord.length() == 0 ? engWord : ukrWord;
+
+            ClipboardManager clipboardManager = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("Copied text", text);
+            clipboardManager.setPrimaryClip(clipData);
+            Toast.makeText(getApplicationContext(), "Copy + paste here " + text, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    };
 
     View.OnClickListener myButtonClickListener = new View.OnClickListener() {
         @Override

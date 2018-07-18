@@ -1,7 +1,12 @@
 package com.example.vyakovenko.dictionary.adapter;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.support.v4.view.GestureDetectorCompat;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -52,9 +57,24 @@ public class DictionaryListAdapter extends BaseAdapter{
         } else {
             System.out.println(i);
             ((TextView) view.findViewById(R.id.counter)).setText((i + 1) + "");
-            ((TextView) view.findViewById(R.id.engWord)).setText(wordsFromDB.get(i)[0]);
+            TextView textView = ((TextView) view.findViewById(R.id.engWord));
+            textView.setText(wordsFromDB.get(i)[0]);
             ((TextView) view.findViewById(R.id.uaWord)).setText(wordsFromDB.get(i)[1]);
+            textView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    TextView textView = ((TextView) view.findViewById(R.id.engWord));
+                    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("Copied text", textView.getText());
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(context, "Copy + paste here " + textView.getText(), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
+
         }
+
         return view;
     }
+
 }

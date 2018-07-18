@@ -47,4 +47,28 @@ public class DBAdapter {
         }
         Log.d("insertCounter", String.valueOf(counter) + " columns added");
     }
+
+    public String[] selectWordFromDB(int index) {
+        String[] pairWords = new String[2];
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("dictionary", null, "id = ?", new String[]{String.valueOf(index)}, null, null, "id");
+        if (c.moveToFirst()) {
+            pairWords[0] = c.getString(c.getColumnIndex("english"));
+            pairWords[0] = c.getString(c.getColumnIndex("ukrainian"));
+        }
+        c.close();
+        return pairWords;
+    }
+
+    public int getWordsCount() {
+        int count = 0;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("dictionary", new String[]{"MAX(id)"}, null, null, null, null, null);
+        if (c.moveToFirst()) {
+            count = Integer.parseInt(c.getString(c.getColumnIndex("MAX(id)")));
+        }
+        c.close();
+        Log.d("MAX_ID", String.valueOf(count) + " max ID");
+        return count;
+    }
 }
