@@ -1,6 +1,7 @@
 package com.example.vyakovenko.dictionary.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,12 +26,13 @@ import java.util.ArrayList;
 
 import static java.util.Collections.sort;
 
-public class WordsTraining extends MainTemplate {
+public class WordsTraining extends MainTemplate implements View.OnClickListener{
 
     Button btn1, btn2, btn3, btn4;
     TextView trainWord;
     DBAdapter dbAdapter;
     int maxID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class WordsTraining extends MainTemplate {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        dbAdapter = new DBAdapter(dbHelper);
         maxID = dbAdapter.getWordsCount();
 
         dbAdapter = new DBAdapter(dbHelper);
@@ -55,6 +58,12 @@ public class WordsTraining extends MainTemplate {
         btn2 = (Button) findViewById(R.id.btn2);
         btn3 = (Button) findViewById(R.id.btn3);
         btn4 = (Button) findViewById(R.id.btn4);
+
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
+
         fillElementsWithData(getRandTestWords(), getWords());
     }
 
@@ -75,15 +84,63 @@ public class WordsTraining extends MainTemplate {
         String[] trainWordText = getWords();
         ArrayList<String> data = new ArrayList<>();
         data.add(trainWordText[1]);
-        for(int i = 0; i < 3; i++ ){
+        for (int i = 0; i < 3; i++) {
             String word = dbAdapter.selectWordFromDB(getRandIndex())[1];
-            if(!word.equals(trainWordText[1])) data.add(word);
+            if (!word.equals(trainWordText[1])) data.add(word);
             else data.add(dbAdapter.selectWordFromDB(getRandIndex())[1]);
         }
         return data;
     }
+
     public String[] getWords() {
         int rand = getRandIndex();
         return dbAdapter.selectWordFromDB(rand);
+    }
+
+    public void test(Button btn, String mainText) {
+        while (true){
+            fillElementsWithData(getRandTestWords(), getWords());
+            if (verifyResult(mainText, String.valueOf(btn.getText()))) {
+                btn.setBackgroundColor(Color.GREEN);
+            } else {
+                btn.setBackgroundColor(Color.RED);
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean verifyResult(String mainText, String selectedText){
+        return mainText.equals(selectedText);
+    }
+
+    @Override
+    public void onClick(View view) {
+        String mainText = (String) trainWord.getText();
+        switch (view.getId()) {
+
+            case R.id.btn1:
+                test(btn1, mainText);
+               // fillElementsWithData(getRandTestWords(), getWords());
+                break;
+
+            case R.id.btn2:
+                test(btn2, mainText);
+               // fillElementsWithData(getRandTestWords(), getWords());
+                break;
+
+            case R.id.btn3:
+                test(btn3, mainText);
+                //fillElementsWithData(getRandTestWords(), getWords());
+                break;
+
+            case R.id.btn4:
+                test(btn4, mainText);
+               // fillElementsWithData(getRandTestWords(), getWords());
+                break;
+        }
     }
 }

@@ -54,8 +54,9 @@ public class DBAdapter {
         Cursor c = db.query("dictionary", null, "id = ?", new String[]{String.valueOf(index)}, null, null, "id");
         if (c.moveToFirst()) {
             pairWords[0] = c.getString(c.getColumnIndex("english"));
-            pairWords[0] = c.getString(c.getColumnIndex("ukrainian"));
+            pairWords[1] = c.getString(c.getColumnIndex("ukrainian"));
         }
+
         c.close();
         return pairWords;
     }
@@ -64,9 +65,9 @@ public class DBAdapter {
         int count = 0;
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query("dictionary", new String[]{"MAX(id)"}, null, null, null, null, null);
-        if (c.moveToFirst()) {
+        if (c.moveToFirst())
             count = Integer.parseInt(c.getString(c.getColumnIndex("MAX(id)")));
-        }
+
         c.close();
         Log.d("MAX_ID", String.valueOf(count) + " max ID");
         return count;
