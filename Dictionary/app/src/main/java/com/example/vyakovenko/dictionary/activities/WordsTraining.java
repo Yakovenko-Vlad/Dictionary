@@ -26,12 +26,13 @@ import java.util.ArrayList;
 
 import static java.util.Collections.sort;
 
-public class WordsTraining extends MainTemplate implements View.OnClickListener{
+public class WordsTraining extends MainTemplate implements View.OnClickListener {
 
     Button btn1, btn2, btn3, btn4;
     TextView trainWord;
     DBAdapter dbAdapter;
     int maxID;
+    String[] trainWordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +65,10 @@ public class WordsTraining extends MainTemplate implements View.OnClickListener{
         btn3.setOnClickListener(this);
         btn4.setOnClickListener(this);
 
-        fillElementsWithData(getRandTestWords(), getWords());
+        fillElementsWithData(getRandTestWords());
     }
 
-    public void fillElementsWithData(ArrayList<String> data, String[] trainWordText) {
+    public void fillElementsWithData(ArrayList<String> data) {
         trainWord.setText(trainWordText[0]);
         sort(data);
         btn1.setText(data.get(0));
@@ -81,8 +82,8 @@ public class WordsTraining extends MainTemplate implements View.OnClickListener{
     }
 
     public ArrayList<String> getRandTestWords() {
-        String[] trainWordText = getWords();
         ArrayList<String> data = new ArrayList<>();
+        getWords();
         data.add(trainWordText[1]);
         for (int i = 0; i < 3; i++) {
             String word = dbAdapter.selectWordFromDB(getRandIndex())[1];
@@ -92,28 +93,31 @@ public class WordsTraining extends MainTemplate implements View.OnClickListener{
         return data;
     }
 
-    public String[] getWords() {
+    public void getWords() {
         int rand = getRandIndex();
-        return dbAdapter.selectWordFromDB(rand);
+        trainWordText = dbAdapter.selectWordFromDB(rand);
     }
 
     public void test(Button btn, String mainText) {
-        while (true){
-            fillElementsWithData(getRandTestWords(), getWords());
+
             if (verifyResult(mainText, String.valueOf(btn.getText()))) {
                 btn.setBackgroundColor(Color.GREEN);
             } else {
                 btn.setBackgroundColor(Color.RED);
             }
+        finish();
+        startActivity(new Intent(this, WordsTraining.class));
+        overridePendingTransition(0, 0);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+            fillElementsWithData(getRandTestWords());
+
     }
 
-    public boolean verifyResult(String mainText, String selectedText){
+    public boolean verifyResult(String mainText, String selectedText) {
         return mainText.equals(selectedText);
     }
 
@@ -123,23 +127,19 @@ public class WordsTraining extends MainTemplate implements View.OnClickListener{
         switch (view.getId()) {
 
             case R.id.btn1:
-                test(btn1, mainText);
-               // fillElementsWithData(getRandTestWords(), getWords());
+                test(btn1, trainWordText[1]);
                 break;
 
             case R.id.btn2:
-                test(btn2, mainText);
-               // fillElementsWithData(getRandTestWords(), getWords());
+                test(btn2, trainWordText[1]);
                 break;
 
             case R.id.btn3:
-                test(btn3, mainText);
-                //fillElementsWithData(getRandTestWords(), getWords());
+                test(btn3, trainWordText[1]);
                 break;
 
             case R.id.btn4:
-                test(btn4, mainText);
-               // fillElementsWithData(getRandTestWords(), getWords());
+                test(btn4, trainWordText[1]);
                 break;
         }
     }
