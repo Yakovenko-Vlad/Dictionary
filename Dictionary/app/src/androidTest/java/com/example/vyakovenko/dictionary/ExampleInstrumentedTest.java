@@ -21,6 +21,7 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
         assertEquals(true, true);
+        assertEquals(1==1, true);
         assertEquals("com.example.vyakovenko.dictionary", appContext.getPackageName());
     }
 }
