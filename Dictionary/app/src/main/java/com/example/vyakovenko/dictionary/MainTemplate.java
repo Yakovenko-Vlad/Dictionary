@@ -20,7 +20,7 @@ import com.example.vyakovenko.dictionary.activities.MainActivity;
 import com.example.vyakovenko.dictionary.activities.ReviewWords;
 import com.example.vyakovenko.dictionary.activities.WordsTraining;
 import com.example.vyakovenko.dictionary.external_carriers.JSONadapter;
-
+/* test12*/
 
 public class MainTemplate extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
